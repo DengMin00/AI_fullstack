@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn">获取歌手的信息</button>
+    <ul id="list">
+        <li>许嵩</li>
+    </ul>
+    <script>
+        console.log(12312312);
+        
+        // js得到一个dom结构
+        let btn = document.getElementById("btn")
+        console.log(btn);
+        // 箭头函数，function函数，区别
+        btn.addEventListener('click', () => {
+            // 这个this指的是window
+            // console.log("hello")
+            getDate()
+        })
+
+        function getDate() {
+            // 实例对象，xhr会有很多方法可以用
+            const xhr = new XMLHttpRequest()
+            xhr.open('GET', 'https://mock.mengxuegu.com/mock/66585c4db462b81cb3916d3e/songer/songer')
+            xhr.send()
+            xhr.onreadystatechange = function () {
+                // readyState 0，1，2，3后端已经成功返回，4前端已经成功接受信息
+                // ==和===的区别，==判断值是否相等，===判断类型和值是否都相等。
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    const data=JSON.parse(xhr.responseText)
+                    console.log(data);
+                    // 这个date是一个对象
+                    // console.log(xhr.responseText);
+
+                    // 循环数组，拿到数组中的每个对象，将对象中的name值展示在页面上
+                    // renderList 渲染列表项的函数
+                    renderList(data.data)
+                }
+            }
+        }
+        function renderList(arr){
+            const ul=document.getElementById('list')
+            for (let i =0;i<arr.length;i++){
+                // arr[i]是一个对象
+                const item =arr[i]
+                // 往ul中植入一个li
+                const li=document.createElement("li")
+                li.innerText=item.name
+                ul.appendChild(li)
+            }
+        }
+    </script>
+</body>
+
+</html>

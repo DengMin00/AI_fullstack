@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn">获取歌手的信息</button>
+    <ul id="list">
+        <li>许嵩</li>
+    </ul>
+    <script>
+        let btn = document.getElementById('btn')
+        btn.addEventListener('click',()=>{
+            fetch('https://mock.mengxuegu.com/mock/66585c4db462b81cb3916d3e/songer/songer',{
+                method:"get"
+            })
+            .then((res)=>{
+                console.log(res)
+             })
+        })
+
+        //     btn.addEventListener('click',()=>{
+        //         // 全局能直接写的东西在windows
+        //         fetch('https://mock.mengxuegu.com/mock/66585c4db462b81cb3916d3e/songer/songer',{
+        //             method:"GET"
+        //             // 异步编程
+        //         }).then((res)=>{
+        //              console.log(res);
+        //     })
+        // )}
+    </script>
+</body>
+
+</html>

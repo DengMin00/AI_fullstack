@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="username">
+    <input type="text" id="password">
+    <button id="btn" onclick="uploadXMLDoc()">登录</button>
+    <div id="result"></div>
+    <script>
+        let btn = document.getElementById('btn')
+        let username = document.getElementById('username').value
+        let text = document.getElementById('password').value
+        // 法一
+        // // 'http://192.168.31.21:3000/login?username=${你的账号}&password=${你的密码}'
+        // btn.addEventListener('click', () => {
+        //     // ip地址需要用反引号，让v8能识别
+        //     fetch(`http://192.168.31.21:3000/login?username=${username.value}&password=${text.value}`, { method: "get" }).then((res) => {
+        //     console.log(res)
+        // })
+        // })
+
+        // 法二
+        function uploadXMLDoc() {
+            var xmlhttp;
+            if (window.XMLHttpRequest) {
+                xmlhttp = new XMLHttpRequest();
+            }
+            else {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function () {
+                if(xmlhttp.readystate==4&&xmlhttp.status==200){
+                    document.getElementById("result").innerHTML="登陆成功"+Response;
+                    console.log("服务器返回"+Response);
+                }
+                else if (xmlhttp.readystate==4){
+                    document.getElementById("result").innerHTML="登陆失败，状态码："+xmlhttp.status;
+                    console.error("请求失败，状态码：",xmlhttp.status);
+                }
+            }
+            var url=`http://192.168.31.21:3000/login?username=${username}&password=${text}`
+            xmlhttp.open("GET",url,true);
+            xmlhttp.send();
+        }
+
+    </script>
+</body>
+
+</html>

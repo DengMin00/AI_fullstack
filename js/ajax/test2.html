@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="username" placeholder="请输入账号">
+    <input type="text" id="password" placeholder="请输入密码">
+    <button id="btn" onclick="loadXML()">登陆</button>
+    <div id="result"></div>
+    <script>
+       function loadXML(){
+         var username=document.getElementById('username')
+        var password=document.getElementById('password')
+        if (!username||!password){
+            alert('账号和密码不能为空')
+            return;
+        }
+        var xmlhttp;
+        if (window.XMLHttpRequest){
+            xmlhttp=new XMLHttpRequest();
+        }
+        else{
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        
+        xmlhttp.onreadystatechange=function(){
+            if (xmlhttp.readyState==4&&xmlhttp.status==200){
+                var response=xmlhttp.ResponseText;
+                document.getElementById("result").innerHTML="登陆成功"+response;
+                console.log("登陆成功"+response)
+            }
+            else if(xmlhttp.readyState==4){
+                document.getElementById("result").innerHTML="登陆失败，状态码"+xmlhttp.status
+                console.error("请求失败，状态码:"+xmlhttp.status)
+            }
+        }
+        var url=``
+        xmlhttp.open("GET",url,true);
+        xmlhttp.send();
+       }
+
+    </script>
+</body>
+</html>
